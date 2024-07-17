@@ -5,10 +5,11 @@ import torch.nn.functional as F
 # hyperparameters
 batch_size = 32     # how many independent sequences will we process in parallel?
 block_size = 8      # what is the maximum context length for predictions?
-num_heads = 4
+n_heads = 4
+ffwd_mul = 4
 n_embd = 32
 max_iters = 50000
-eval_intervals = 5000
+eval_intervals = 10000
 eval_iters = 100
 learning_rate = 1e-3
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -91,22 +92,47 @@ class MultiHeadAttention(nn.Module):
 
     def __init__(self, num_heads, head_size):
         super().__init__()
+
         self.heads = nn.ModuleList([Head(head_size) for _ in range(num_heads)])
+        self.proj = nn.Linear(n_embd, n_embd)
 
     def forward(self, x):
-        return torch.cat([h(x) for h in self.heads], dim=-1)
+        out = torch.cat([h(x) for h in self.heads], dim=-1)
+        out = self.proj(out)
+        return out
     
 class FeedForward(nn.Module):
 
     def __init__(self, n_embd):
         super().__init__()
+
         self.net = nn.Sequential(
-            nn.Linear(n_embd, n_embd),
+            nn.Linear(n_embd, ffwd_mul * n_embd),
             nn.ReLU()
         )
+        self.proj = nn.Linear(ffwd_mul * n_embd, n_embd)
 
     def forward(self, x):
-        return self.net(x)
+        out = self.net(x)
+        out = self.proj(out)
+        return out
+    
+class Block(nn.Module):
+    """transformer block: communication followed by computation"""
+
+    def __init__(self, n_embd, n_head):
+        # n_embd: embedding dimension, n_head: number of heads
+        super().__init__()
+
+        head_size = n_embd // n_head
+        self.sa = MultiHeadAttention(n_head, head_size)
+        self.ffwd = FeedForward(n_embd)
+
+    def forward(self, x):
+        x = x + self.sa(x)
+        x = x + self.ffwd(x)
+        return x
+
 
 # super simple bigram model
 class BigramLanguageModel(nn.Module):
@@ -118,8 +144,11 @@ class BigramLanguageModel(nn.Module):
         self.position_embedding_table = nn.Embedding(block_size, n_embd)
 
         # num_heads heads of head_size dimensional self-attention
-        self.sa_head = MultiHeadAttention(num_heads, n_embd//num_heads)
-        self.ffwd = FeedForward(n_embd)
+        self.blocks = nn.Sequential(
+            Block(n_embd, n_heads),
+            Block(n_embd, n_heads),
+            Block(n_embd, n_heads)
+        )
         self.lm_head = nn.Linear(n_embd, vocab_size)
     
     def forward(self, idx, targets=None):
@@ -129,8 +158,7 @@ class BigramLanguageModel(nn.Module):
         tok_emb = self.token_embedding_table(idx)                                   # (B, T, C)
         pos_emb = self.position_embedding_table(torch.arange(T, device=device))     # (T, C)
         x = tok_emb + pos_emb                                   # (B, T, C)
-        x = self.sa_head(x)                                     # apply one head of self-attention (B, T, head_size)
-        x = self.ffwd(x)                                        # (B, T, n_embd)
+        x = self.blocks(x)                                      # (B, T, n_embd)
         logits = self.lm_head(x)                                # (B, T, vocab_size)
 
         if targets is None:
@@ -163,6 +191,9 @@ class BigramLanguageModel(nn.Module):
 model = BigramLanguageModel()
 m = model.to(device)
 
+param_count = sum([p.nelement() for p in m.parameters()])
+print(f'parameter count:', param_count)
+
 # create a PyTorch optimizer
 optimizer = torch.optim.AdamW(m.parameters(), lr=learning_rate)
 
@@ -184,4 +215,3 @@ for iter in range(max_iters):
 # generate from the model
 context = torch.zeros((1, 1), dtype=torch.long, device=device)
 print(decode(m.generate(context, max_new_tokens=500)[0].tolist()))
-
