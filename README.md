@@ -88,7 +88,7 @@ The main model class that encompasses the token and positional embedding layers,
 ## Sample Text
 
 ```
-`Et tu, Brute?
+Et tu, Brute?
 
 PRINCE:
 My guiltle sovereign, of his name but the king;
