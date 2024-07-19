@@ -76,14 +76,82 @@ The main model class that encompasses the token and positional embedding layers,
 
 ## Usage
 
-1. **Prepare Data**: Ensure the `tiny_shakespeare.txt` file is in the same directory.
+1. **Prepare Data**: Ensure the `tiny_shakespeare.txt` file is in the `models` directory.
 2. **Train the Model**: Run the training loop, which will print the training and testing losses at specified intervals.
-3. **Generate Text**: After training, use the `generate` method to produce new text based on a given context.
+3. **Generate Text**: After training, run `sample.py` to produce new text based on a given context.
 
 ## Requirements
 
 - Python 3.x
 - PyTorch (version compatible with CUDA if available)
+
+## Sample Text
+
+```
+`Et tu, Brute?
+
+PRINCE:
+My guiltle sovereign, of his name but the king;
+Like tears then men af God's holy hands,
+And live put up on this ireful spirit
+As these breathed groan in all for a kiss.
+Thou that goest more would, as thou dream of all
+First in the cuares of receit and either room in
+The weak of dignity, a kind of why, you know
+To do a letter tyrant. What, if it be so?
+
+MENENIUS:
+Madam, this can you not her.
+
+First Senator:
+Unhappily use. For this time, a sigh gentleman.
+
+MENENIUS:
+My hope be ruled in thy capital;
+Thy sepular's seat, if he did not go
+But holp too.
+
+VOLUMNIA:
+If 't, thou goest, of good night, thy life
+Of our city, an you whose scripe proceeding in children,
+Where own wrinkled yet with lottless disposition,
+I was the befit his wars; thou shalt be long
+For being faintly now.
+
+ISABELLA:
+This I know my life; but I beseech you,
+Because it is not.
+
+ANGELO:
+I promised!
+
+ISABELLA:
+And then I did!
+Now for I must be order make his majesty
+To pmon my death, dressolve the arguit of a dropper.`
+```
+
+## Statistics
+```
+tiny_shakespeare_2500.pt
+step   500: train loss 1.8415, test loss 1.9685
+step  1000: train loss 1.3468, test loss 1.5712
+step  1500: train loss 1.2015, test loss 1.4930
+step  2000: train loss 1.0994, test loss 1.4801
+step  2500: train loss 0.9971, test loss 1.5281
+
+tiny_shakespeare_5000.pt
+step   500: train loss 1.8415, test loss 1.9685
+step  1000: train loss 1.3468, test loss 1.5712
+step  1500: train loss 1.2015, test loss 1.4930
+step  2000: train loss 1.0994, test loss 1.4801
+step  2500: train loss 0.9971, test loss 1.5281
+step  3000: train loss 0.8902, test loss 1.5771
+step  3500: train loss 0.7805, test loss 1.6503
+step  4000: train loss 0.6549, test loss 1.7474
+step  4500: train loss 0.5355, test loss 1.9054
+step  5000: train loss 0.4320, test loss 2.0170
+```
 
 ## Conclusion
 
