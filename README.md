@@ -88,69 +88,74 @@ The main model class that encompasses the token and positional embedding layers,
 ## Sample Text
 
 ```
-Et tu, Brute?
+Et tu, Brute? O what is that sad?
+And, King Richard, no longer peace and doth ever
+Only bury king, this sits and writing,
+As thus penceful to make offence and please.
+Richard is the name? What sayestilence of due?
+Farewell, that courtesy.
 
-PRINCE:
-My guiltle sovereign, of his name but the king;
-Like tears then men af God's holy hands,
-And live put up on this ireful spirit
-As these breathed groan in all for a kiss.
-Thou that goest more would, as thou dream of all
-First in the cuares of receit and either room in
-The weak of dignity, a kind of why, you know
-To do a letter tyrant. What, if it be so?
+KING RICHARD II:
+Except for you our purpose.
 
-MENENIUS:
-Madam, this can you not her.
+Second Citizen:
+Once can be daily; prepare your fire to merry.
 
-First Senator:
-Unhappily use. For this time, a sigh gentleman.
+OXFORD:
+Stops, go to them all you and hear it;
+Nor fair of the thoughty and your affection
+By your brother, for unpiection may go.
 
-MENENIUS:
-My hope be ruled in thy capital;
-Thy sepular's seat, if he did not go
-But holp too.
+BUCKINGHAM:
+You had scarce when Baptista's deserted:
+For your honour mark, we'll pardon it;
+For all servants all their flatterers coal-night,
+Your lords are monister, as they dare.
+Thus it could prove at Razaunt, then create
+Do with much the effect him. Weeping, well eaten'd.
+I hear, sir; you are up howly gone to Marcius:
+Who see
+Who call him he fix'd matcher; be not found
+Save her labour in thy sort.
 
-VOLUMNIA:
-If 't, thou goest, of good night, thy life
-Of our city, an you whose scripe proceeding in children,
-Where own wrinkled yet with lottless disposition,
-I was the befit his wars; thou shalt be long
-For being faintly now.
+POMPEY:
 
-ISABELLA:
-This I know my life; but I beseech you,
-Because it is not.
+Sirrah, sir;
+Out of the men body members of those will move
+I had called to have their purchasage
+To meet hundred.'
 
-ANGELO:
-I promised!
+First Murderer:
+Ay, my lord;
+And in my father deserves here I dain.
 
-ISABELLA:
-And then I did!
-Now for I must be order make his majesty
-To pmon my death, dressolve the arguit of a dropper.`
+CAPULET:
+And thus I was, to give her by the suit.
+aid me, let me name had no wear: sooth:
+Who call thy bend the household the clouds King Richard's blood,
+Or shall pluck thou to't do again.
+Not of the grave's prayer citizens,
+To be fear it tell thee so, and deliver thee,
+To quench him to his and loving to see:
+Behold we laugh a tock to him or a purpose,
+Who with these none hope hast done not know him,
+But thou more approclaiment, do do undo a part,
+To put the voice.
 ```
 
 ## Statistics
 ```
-tiny_shakespeare_2500.pt
-step   500: train loss 1.8415, test loss 1.9685
-step  1000: train loss 1.3468, test loss 1.5712
-step  1500: train loss 1.2015, test loss 1.4930
-step  2000: train loss 1.0994, test loss 1.4801
-step  2500: train loss 0.9971, test loss 1.5281
-
-tiny_shakespeare_5000.pt
-step   500: train loss 1.8415, test loss 1.9685
-step  1000: train loss 1.3468, test loss 1.5712
-step  1500: train loss 1.2015, test loss 1.4930
-step  2000: train loss 1.0994, test loss 1.4801
-step  2500: train loss 0.9971, test loss 1.5281
-step  3000: train loss 0.8902, test loss 1.5771
-step  3500: train loss 0.7805, test loss 1.6503
-step  4000: train loss 0.6549, test loss 1.7474
-step  4500: train loss 0.5355, test loss 1.9054
-step  5000: train loss 0.4320, test loss 2.0170
+tiny_shakespeare.pt
+step   200: train loss 2.4401, test loss 2.4653
+step   400: train loss 2.0728, test loss 2.1762
+step   600: train loss 1.6529, test loss 1.8009
+step   800: train loss 1.4683, test loss 1.6798
+step  1000: train loss 1.3641, test loss 1.5981
+step  1200: train loss 1.2827, test loss 1.5401
+step  1400: train loss 1.2247, test loss 1.5094
+step  1600: train loss 1.1812, test loss 1.4891
+step  1800: train loss 1.1368, test loss 1.4898
+step  2000: train loss 1.1038, test loss 1.4972
 ```
 
 ## Conclusion
