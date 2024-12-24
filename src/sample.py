@@ -7,7 +7,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 # load the saved model
 model_path = 'models/tiny_shakespeare.pt'
 model = BigramLanguageModel()
-model.load_state_dict(torch.load(model_path, map_location=torch.device(device)))
+model.load_state_dict(torch.load(model_path, map_location=torch.device(device), weights_only=False))
 model.to(device)
 model.eval()
 
