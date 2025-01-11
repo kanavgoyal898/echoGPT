@@ -1,4 +1,4 @@
-# echoGPT: character-level large language model
+# echoGPT: Character-Level Large Language Model
 
 ## Overview
 
