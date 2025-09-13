@@ -62,7 +62,7 @@ Defines a simple feed-forward neural network with one hidden layer, followed by 
 ### 4. `Block`
 Represents a transformer block, consisting of multi-head self-attention followed by a feed-forward network. Layer normalization is applied after each sub-layer.
 
-### 5. `BigramLanguageModel`
+### 5. `CharacterLevelLanguageModel`
 The main model class that encompasses the token and positional embedding layers, multiple transformer blocks, and the final output layer for character predictions. It includes methods for:
 - Forward propagation (calculating logits and loss).
 - Generating new text sequences based on a given context.
@@ -78,7 +78,7 @@ The main model class that encompasses the token and positional embedding layers,
 
 1. **Prepare Data**: Ensure the `tiny_shakespeare.txt` file is in the `models` directory.
 2. **Train the Model**: Run the training loop, which will print the training and testing losses at specified intervals.
-3. **Generate Text**: After training, run `sample.py` to produce new text based on a given context.
+3. **Generate Text**: After training, run `main.py` to produce new text based on a given context.
 
 ## Requirements
 

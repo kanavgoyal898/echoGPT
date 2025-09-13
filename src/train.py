@@ -1,3 +1,5 @@
+import os
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -13,10 +15,16 @@ n = (int)((0.9)*len(data))
 train_data = data[:n]
 test_data = data[n:]
 
+model = CharacterLevelLanguageModel()
+model.to(device)
+
+param_count = sum([p.nelement() for p in model.parameters()])
+print(f'parameter count: {param_count:,}')
+
 # data loading
 def get_batch(split):
     data = train_data if split == 'train' else test_data
-    ix = torch.randint(0, len(data) - block_size, (batch_size,))
+    ix = torch.randint(0, len(data) - block_size, (batch_size, ))
     x = torch.stack([data[i:i+block_size] for i in ix])
     y = torch.stack([data[i+1:i+block_size+1] for i in ix])
     x, y = x.to(device), y.to(device)
@@ -37,19 +45,27 @@ def estimate_loss():
     return out
 
 # create a PyTorch optimizer
-optimizer = torch.optim.AdamW(m.parameters(), lr=learning_rate)
+optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
 for iter in range(max_iters):
     # every once in a while evaluate the loss on train and test sets
     if (iter+1) % eval_intervals == 0:
         losses = estimate_loss()
-        print(f'step {iter+1:5d}: train loss {losses['train']:.4f}, test loss {losses['test']:.4f}')
+        print(f"step {iter+1:5d}: train loss {losses['train']:.4f}, test loss {losses['test']:.4f}")
 
     # sample a batch of data
     x_batch, y_batch = get_batch('train')
 
     # evaluate the loss
-    logits, loss = m(x_batch, y_batch)
+    logits, loss = model(x_batch, y_batch)
     optimizer.zero_grad(set_to_none=True)
     loss.backward()
     optimizer.step()
+
+# save the model
+if not os.path.exists('models'):
+    os.makedirs('models')
+
+model_path = 'models/tiny_shakespeare.pt'
+torch.save(model.state_dict(), model_path)
+print(f'model saved to {model_path}')
